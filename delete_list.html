@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>组件拆分</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <input type="text" v-model='addval'>
+            <button @click="addlist">添加</button>
+            <ul>
+                <todo-item 
+                    v-for="(item,index) of list" 
+                    :key="index" 
+                    :content="item"
+                    :index="index"
+                    @delete="todelete"   
+                >
+                </todo-item>
+            </ul>
+        </div>
+
+        <script>
+            //父组件向子组件传值是通过:属性
+            //子组件向父组件传值：发布订阅模式$emit   父组件要监听子组件的事件
+
+
+
+            //子组件
+            Vue.component('todo-item',{
+                props:["content","index"],   //接收父组件传递过来的两个属性值
+                template:'<li @click="deleteli">{{content}}</li>' , 
+                methods:{
+                    "deleteli":function(){
+                        //向外触发一个事件，事件名是delete,对应的值是this.index。父组件要监听子组件的delete事件
+                        this.$emit("delete",this.index)  
+                    }
+                }
+            })
+
+            //父组件
+            new Vue({
+                el:"#root",
+                data:{
+                    addval:"",
+                    list:[]
+                },
+                methods:{
+                    addlist:function(){
+                       this.list.push(this.addval);
+                       this.addval='';
+                    },
+                    todelete:function(index){
+                        this.list.splice(index,1)
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

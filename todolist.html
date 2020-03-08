@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>实践——添加列表todolist</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <input type="text" v-model='addval'>
+            <button @click="addlist">添加</button>
+            <ul>
+                <li v-for="(item,index) of list" :key="index">{{item}}</li>
+            </ul>
+        </div>
+
+        <script>
+            //实例效果：点击添加，input的值加入列表，且input清空
+            new Vue({
+                el:"#root",
+                data:{
+                    addval:"",
+                    list:[]
+                },
+                methods:{
+                    addlist:function(){
+                       this.list.push(this.addval);
+                       this.addval='';
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

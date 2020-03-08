@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>组件拆分</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <input type="text" v-model='addval'>
+            <button @click="addlist">添加</button>
+            <ul>
+                <todo-item v-for="(item,index) of list" :key="index" :content="item"></todo-item>
+            </ul>
+        </div>
+
+        <script>
+            //局部组件,不能直接在父组件的模版里调用子组件
+            //需要在最外层的vue实例里面通过componments来做一个组件的声明
+
+            // var TodoItem = {
+            //     template:'<li>item</li>' 
+            // }
+
+            //全局组件，在这个vue实例的任何地方，通过<todo-item>都可以使用
+            //调用<todo-item>的时候可以给组件传参，通过属性的形式
+            //组件不能直接使用content属性，需要在小组件里定义一个props的属性，它的值可以是一个数组
+            Vue.component('todo-item',{
+                props:["content"],
+                template:'<li @click="clickli">{{content}}</li>' , //一个小的组件可以有自己的模版
+                methods:{
+                    "clickli":function(){
+                        alert("111")
+                    }
+                }
+            })
+
+            new Vue({
+                el:"#root",
+                // components:{    //局部组件声明
+                //     'todo-item':TodoItem
+                // },
+                data:{
+                    addval:"",
+                    list:[]
+                },
+                methods:{
+                    addlist:function(){
+                       this.list.push(this.addval);
+                       this.addval='';
+                    }
+                }
+            })
+
+
+            //组件与实例的关系
+            //vue实例有自己的模版，它的模版就是挂载点下面的所有内容
+            //每一个vue的组件，又是一个vue的实例，
+            //任何一个vue项目都是由千千万万个vue实例组成的
+            //在组件里面也可以使用methods属性
+            //vue根实例，如果不定义模版，它会把挂载点下面的所有内容当作它的模版
+        </script>
+    </body>
+</html>
