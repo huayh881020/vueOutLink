@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>属性绑定和双向数据绑定</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <p :title="'js方法'+title">属性绑定测试</p>
+            <input type="text" v-model="content">
+            <div>{{content}}</div>
+        </div>
+
+        <script>
+            //属性绑定：v-bind  模版指令“=”后面的内容不再是一个字符串，而是一个js的表达式，可以写一些js的内容，可简写为“：”
+            //双向绑定：v-model  
+            
+            new Vue({
+                el:"#root",
+                data:{
+                    title:"属性测试的标题",
+                    content:"数据双向绑定测试"
+                }
+            })
+        </script>
+    </body>
+</html>

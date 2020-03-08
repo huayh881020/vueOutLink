@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>常见指令v-if、v-show、v-for</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!-- 显示或隐藏 -->
+            <div v-show="show">hello world</div>
+            <button @click="showhide">toggle</button>
+            <ul>
+                <li v-for="(item,index) of list" :key="index">{{item}}</li>
+            </ul>
+        </div>
+
+        <script>
+            //v-if：会直接删除DOM结构（只需要用一次的时候选择）
+            //v-show：通过改变标签的display属性控制显示隐藏。如果频繁的操作元素显示隐藏，建议用这个
+            //v-for：循环内容的展示，使用这个指令的时候添加一个 ：key=“” 的属性，可以提高渲染性能
+            //每一项的key值都不能相同，所以可以考虑用index作为key，如果需要对列表进行频繁的操作，则不适用
+            
+            new Vue({
+                el:"#root",
+                data:{
+                    show:true,
+                    list:[1,2,3]
+                },
+                methods:{
+                    showhide:function(){
+                        this.show = !this.show;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

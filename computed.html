@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>vue中的计算属性和侦听器</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            姓：<input v-model="firstName">
+            名：<input v-model="lastName">
+            <div>{{fullName}}</div>
+
+            <!-- 姓名没变化一次，num+1 -->
+            <div>{{num}}</div>
+
+        </div>
+
+        <script>
+            //计算属性：computed指的是一个属性通过其他属性计算而来
+            //优势：如果相加属性中的任何一个值没有改变，那计算而来的这个属性值会使用上次计算的缓存结果
+
+            //侦听器：watch   侦听某一个数据的变化
+            
+            new Vue({
+                el:"#root",
+                data:{
+                    firstName:"",
+                    lastName:"",
+                    num:0
+                },
+                computed:{
+                    fullName:function(){
+                        return this.firstName + this.lastName
+                    }
+                },
+                watch:{
+                    fullName:function(){
+                        this.num++
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

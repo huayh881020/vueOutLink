@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>vue实例</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1 @click="tochange">{{msg}}</h1>
+            <h2 v-text="number"></h2>
+            <div v-html='content'></div>
+        </div>
+        <script>
+            //创建一个vue的实例 new Vue()  因为我们引入了vue.js库，所以可以直接通过new Vue() ，来创建一个vue实例。
+            //创建实例的时候，我们可以传递一个参数给这个实例，也就是对象{},这里对象大概会分为几个部分，大概如下：
+
+            //实例的组成部分：
+            //el:''   vue实例和哪个DOM节点做绑定,即挂载点
+            //template:''   挂载点里面的内容，可以直接写在标签内，也可以写在vue实例里面。
+            //data{},   放置数据的地方，可以配置任意的数据名，
+            //methods:{ 事件名:function(){}}    事件
+
+            //数据的几种表现方法：
+            //{{mes}} 这种语法叫做插值表达式
+            //v-text="number"   转译后的内容
+            //v-html='content'  不转译，可以写带样式的标签
+
+            //事件
+            //v-on:click="事件名"，也可以写成 @click="事件名"
+            //this.msg  当前实例下，msg变量
+
+            new Vue({
+                el:"#app",
+                //template:'<h1>hello,{{msg}}</h1>',
+                data:{
+                    msg:"你好a",
+                    number:123,
+                    content:"<h5 style='color:red'>小标签</h5>"
+                },
+                methods:{
+                    tochange:function(){
+                        this.msg="我很好"
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
